@@ -1,0 +1,13 @@
+@import '../../styles/colors-mixins';
+
+.title {
+  color: $blue-color;
+  -webkit-text-stroke: 2px $green-color;
+  text-stroke: 2px $green-color;
+  font-size: 48px;
+  font-weight: 400;
+  display: inline;
+  line-height: 48px;
+  letter-spacing: -0.02em;
+  padding: 0;
+}
