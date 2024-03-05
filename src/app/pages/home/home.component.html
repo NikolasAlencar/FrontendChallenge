@@ -6,12 +6,10 @@
 >
   <div class="header">
     <app-title title="INÍCIO" />
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Pesquisar</mat-label>
-        <input matInput />
-      </mat-form-field>
-    </p>
+    <mat-form-field appearance="outline">
+      <mat-label>Pesquisar</mat-label>
+      <input matInput />
+    </mat-form-field>
   </div>
   <section>
     <app-character-list [seeMore]="true" [characters]="characters()" />
