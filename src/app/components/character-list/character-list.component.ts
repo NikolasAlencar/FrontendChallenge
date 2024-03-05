@@ -19,14 +19,13 @@ import { MatIconModule } from '@angular/material/icon';
     LoaderComponent,
     TruncatePipe,
     NgStyle,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './character-list.component.html',
   styleUrl: './character-list.component.scss',
 })
 export class CharacterListComponent {
-
-  @Input({required: true}) characters!: Characters;
+  @Input({ required: true }) characters!: Characters;
   @Input() seeMore?: boolean;
 
   charactersService = inject(CharactersService);
@@ -39,18 +38,9 @@ export class CharacterListComponent {
 
   favorite(character: Character) {
     character.favorite = !character.favorite;
-    // character
-    //   ? this.charactersService.removeFavorite(character)
-    //   : this.charactersService.addFavorite(character);
-
-    // const exist = this.charactersService
-    //   .favoriteCharacters()
-    //   .find((oldCharacter) => character.favorite === oldCharacter.favorite);
-
-    // if (!exist)
-    //   this.charactersService.favoriteCharacters.set(
-    //     this.charactersService.favoriteCharacters().concat(character)
-    //   );
+    character.favorite
+      ? this.charactersService.addFavorite(character)
+      : this.charactersService.removeFavorite(character);
   }
 
   @HostListener('window:resize', ['$event'])

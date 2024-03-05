@@ -3,7 +3,7 @@ import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { map } from 'rxjs';
 import { Response } from './model/Response';
-import { Characters } from './model/Character';
+import { Character, Characters } from './model/Character';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +30,15 @@ export class CharactersService {
         }
       });
   }
+
+  removeFavorite(character: Character) {
+    const index = this.favoriteCharacters().findIndex(
+      (oldCharacter) => character.id === oldCharacter.id
+    );
+    this.favoriteCharacters().splice(index, 1);
+  }
+
+  addFavorite = (character: Character) => this.favoriteCharacters().push(character);
 
   // getCharactersByName(name: string) {
   //   this.httpClient
