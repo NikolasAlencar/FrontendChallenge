@@ -1,4 +1,4 @@
-import { NgStyle } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { TitleComponent } from '../../components/title/title.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -7,6 +7,7 @@ import { CharactersService } from '../../services/characters.service';
 import { CharacterListComponent } from '../../components/character-list/character-list.component';
 import { FeedbackComponent } from '../../components/feedback/feedback.component';
 import { Router } from '@angular/router';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-favorites',
@@ -18,6 +19,7 @@ import { Router } from '@angular/router';
     MatFormField,
     CharacterListComponent,
     FeedbackComponent,
+    AsyncPipe,
   ],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
@@ -25,7 +27,7 @@ import { Router } from '@angular/router';
 export class FavoritesComponent {
   charactersService = inject(CharactersService);
   router = inject(Router);
-  characters = this.charactersService.getFavoriteCharacters();
+  characters = toObservable(this.charactersService.getFavoriteCharacters());
 
   screenWidth = signal(window.innerWidth / 9);
 

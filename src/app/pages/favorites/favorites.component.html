@@ -7,8 +7,8 @@
 >
   <app-title title="FAVORITOS" />
   <section>
-    @if(characters().length){
-    <app-character-list [characters]="characters()" />
+    @if((characters | async)?.length){
+    <app-character-list [characters]="characters" />
     }@else{
     <app-feedback
       title="Parece que você ainda não tem favoritos"

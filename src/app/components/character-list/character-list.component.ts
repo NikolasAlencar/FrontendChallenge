@@ -1,13 +1,14 @@
 import { Component, HostListener, Input, inject, signal } from '@angular/core';
 import { CharactersService } from '../../services/characters.service';
 import { ajustaGrid } from '../../../assets/util/AjustaGrid';
-import { NgClass, NgStyle } from '@angular/common';
+import { AsyncPipe, NgClass, NgStyle } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SkeletonComponent } from '../../components/skeleton/skeleton.component';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { Character, Characters } from '../../services/model/Character';
 import { MatIconModule } from '@angular/material/icon';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-character-list',
@@ -20,12 +21,13 @@ import { MatIconModule } from '@angular/material/icon';
     TruncatePipe,
     NgStyle,
     MatIconModule,
+    AsyncPipe
   ],
   templateUrl: './character-list.component.html',
   styleUrl: './character-list.component.scss',
 })
 export class CharacterListComponent {
-  @Input({ required: true }) characters!: Characters;
+  @Input({ required: true }) characters!: Observable<Characters>;
   @Input() seeMore?: boolean;
 
   charactersService = inject(CharactersService);

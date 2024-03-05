@@ -1,6 +1,6 @@
 <div class="container">
   <mat-grid-list [cols]="innerWidth()" rowHeight="22rem">
-    @for (character of characters; track $index) {
+    @for (character of characters | async; track $index) {
     <mat-grid-tile>
       <div class="primary" (click)="favorite(character)">
         @defer {
