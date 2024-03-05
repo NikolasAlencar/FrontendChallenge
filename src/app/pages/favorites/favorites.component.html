@@ -7,6 +7,14 @@
 >
   <app-title title="FAVORITOS" />
   <section>
+    @if(characters().length){
     <app-character-list [characters]="characters()" />
+    }@else{
+    <app-feedback
+      title="Parece que você ainda não tem favoritos"
+      subtitle="Volte à página inicial e escolha as melhores para você."
+      [button]="{ text: 'Voltar ao ínicio', acao: navigate }"
+    />
+    }
   </section>
 </div>
