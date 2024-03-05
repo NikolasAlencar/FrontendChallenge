@@ -1,0 +1,19 @@
+<main
+  [ngStyle]="{
+    'padding-left.px': screenWidth(),
+    'padding-right.px': screenWidth()
+  }"
+>
+  <div class="header">
+    <app-title title="INÍCIO" />
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Pesquisar</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </p>
+  </div>
+  <section>
+    <app-character-list [seeMore]="true" [characters]="characters()" />
+  </section>
+</main>
