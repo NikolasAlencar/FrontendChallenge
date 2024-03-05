@@ -1,0 +1,21 @@
+<header>
+  <img src="../../../assets/img/png/rick-and-morty.png" alt="Rick and Morty" />
+  <nav class="font-poppins">
+    <span
+      [routerLink]="['/home']"
+      [ngClass]="isActiveButton('home')"
+      (click)="handleButton('home')"
+    >
+      <mat-icon fontIcon="home"></mat-icon>
+      Início
+    </span>
+    <span
+    [routerLink]="['/favorite']"
+      [ngClass]="isActiveButton('favorites')"
+      (click)="handleButton('favorites')"
+    >
+      <mat-icon>favorite</mat-icon>
+      Favoritos 0
+    </span>
+  </nav>
+</header>

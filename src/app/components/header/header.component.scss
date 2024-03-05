@@ -1,0 +1,54 @@
+@import '../../styles/colors-mixins';
+
+header {
+  height: 64px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $dark-color;
+
+  img {
+    width: 114px;
+    height: 64px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .black {
+      background: black;
+      color: $gray-color;
+    }
+
+    .white {
+      background: white;
+      color: $dark-color;
+    }
+
+    span {
+      border: 1px solid $medium-color;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      white-space: nowrap;
+
+      mat-icon {
+        margin-right: 10px;
+      }
+    }
+
+    span:first-child {
+      border-radius: 12px 0 0 12px;
+    }
+
+    span:nth-child(2) {
+      border-radius: 0 12px 12px 0;
+    }
+  }
+}
