@@ -11,10 +11,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  activeButton = 'favorites';
+  activeButton = 'home';
 
   handleButton = (nameButton: string) => (this.activeButton = nameButton);
 
   isActiveButton = (nameButton: string) =>
-    this.activeButton === nameButton ? 'black' : 'white';
+    this.activeButton === nameButton ? 'white' : 'black';
 }
