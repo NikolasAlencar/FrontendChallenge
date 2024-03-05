@@ -10,12 +10,12 @@
       Início
     </span>
     <span
-    [routerLink]="['/favorite']"
+      [routerLink]="['/favorite']"
       [ngClass]="isActiveButton('favorites')"
       (click)="handleButton('favorites')"
     >
       <mat-icon>favorite</mat-icon>
-      Favoritos 0
+      Favoritos {{ characterService.favoriteCharacters().length }}
     </span>
   </nav>
 </header>

@@ -1,7 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { CharactersService } from '../../services/characters.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  characterService = inject(CharactersService);
   activeButton = 'home';
 
   handleButton = (nameButton: string) => (this.activeButton = nameButton);
