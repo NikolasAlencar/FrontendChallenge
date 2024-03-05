@@ -1,0 +1,14 @@
+<div
+  class="primary"
+  [ngStyle]="{
+    'padding-left.px': screenWidth(),
+    'padding-right.px': screenWidth()
+  }"
+>
+  <div class="header">
+    <app-title title="FAVORITOS" />
+  </div>
+  <section>
+    <app-character-list [characters]="characters()" />
+  </section>
+</div>
