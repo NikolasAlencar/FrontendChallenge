@@ -14,7 +14,6 @@ export class CharactersService {
   characters: WritableSignal<Characters> = signal([]);
   loadingPagination: WritableSignal<Boolean> = signal(false);
   favoriteCharacters: WritableSignal<Characters> = signal([]);
-  // findCharacters: WritableSignal<Characters> = signal([]);
 
   getCharactersByPage(page: number) {
     if (page > 42) return this.loadingPagination.set(false);
@@ -22,6 +21,7 @@ export class CharactersService {
       .get<Response>(`${this.BACKEND_URL}character/?page=${page}`)
       .pipe(map((res) => res.results))
       .subscribe((characters) => {
+        this.setFavorite(characters);
         if (page > 0) {
           this.characters.set(this.characters().concat(characters));
           this.loadingPagination.set(false);
@@ -38,14 +38,19 @@ export class CharactersService {
     this.favoriteCharacters().splice(index, 1);
   }
 
-  addFavorite = (character: Character) => this.favoriteCharacters().push(character);
+  addFavorite = (character: Character) =>
+    this.favoriteCharacters().push(character);
 
-  // getCharactersByName(name: string) {
-  //   this.httpClient
-  //     .get<Response>(`${this.BACKEND_URL}character/?page=${page}`)
-  //     .pipe(map(res => res.results))
-  //     .subscribe(characters => this.findCharacters.set(characters));
-  // }
+  setFavorite(character: Characters) {
+    const idFavorite = this.favoriteCharacters().map(
+      (character) => character.id
+    );
+    character.map((character) => {
+      if (idFavorite.includes(character.id)) {
+        character.favorite = true;
+      }
+    });
+  }
 
   getCharacters = () => this.characters;
 

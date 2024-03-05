@@ -1,11 +1,22 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Injector,
+  OnInit,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { TitleComponent } from '../../components/title/title.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CharactersService } from '../../services/characters.service';
 import { NgStyle } from '@angular/common';
 import { CharacterListComponent } from '../../components/character-list/character-list.component';
 import { MatInputModule } from '@angular/material/input';
+import { FeedbackComponent } from '../../components/feedback/feedback.component';
+import { debounceTime, distinctUntilChanged, startWith } from 'rxjs';
+import { Characters } from '../../services/model/Character';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -14,25 +25,44 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     NgStyle,
     CharacterListComponent,
-    MatInputModule
+    MatInputModule,
+    FeedbackComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor() {
+  constructor(){
     this.charactersService.getCharactersByPage(this.pagePagination);
+    this.searchCharacter.valueChanges
+      .pipe(startWith(''), distinctUntilChanged(), debounceTime(500))
+      .subscribe(
+        (userInput) =>
+          (this.filteredCharacters = this.filteredItems(userInput as string))
+      );
+
+    effect(() => this.filteredCharacters = this.characters());
   }
 
-  nomeFormControl = new FormControl('');
+  searchCharacter = new FormControl('');
+
+  injector = inject(Injector);
 
   charactersService = inject(CharactersService);
   characters = this.charactersService.getCharacters();
+
+  filteredCharacters: Characters = [];
 
   screenWidth = signal(window.innerWidth / 9);
 
   loadingPagination = this.charactersService.getLoadingPagination();
   pagePagination = 0;
+
+  filteredItems = (userInput: string) =>
+    this.characters().filter((character) =>
+      character.name.toLowerCase().includes(userInput.toLowerCase())
+    );
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {

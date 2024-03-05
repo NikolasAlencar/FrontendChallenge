@@ -8,10 +8,17 @@
     <app-title title="INÍCIO" />
     <mat-form-field appearance="outline">
       <mat-label>Pesquisar</mat-label>
-      <input matInput />
+      <input matInput [formControl]="searchCharacter" />
     </mat-form-field>
   </div>
   <section>
-    <app-character-list [seeMore]="true" [characters]="characters()" />
+    @if(filteredCharacters.length){
+    <app-character-list [seeMore]="true" [characters]="filteredCharacters" />
+    }@else {
+    <app-feedback
+      title="Nada foi encontrado"
+      subtitle="Tente realizar uma nova busca."
+    />
+    }
   </section>
 </main>
