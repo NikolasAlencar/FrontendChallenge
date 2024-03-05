@@ -1,0 +1,43 @@
+@import "../../styles/colors-mixins";
+
+.primary {
+  border: 1px solid $medium-color;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 720px;
+  height: 511px;
+  margin-top: 50px;
+
+  p:first-child {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: white;
+  }
+
+  :nth-child(2) {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: $gray-color;
+    margin-top: 16px;
+  }
+
+  button {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0px;
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+  }
+}

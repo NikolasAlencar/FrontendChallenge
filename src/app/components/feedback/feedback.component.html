@@ -1,0 +1,7 @@
+<div class="primary font-poppins">
+  <p>{{ title }}</p>
+  <p>{{ subtitle }}</p>
+  @if (button?.text) {
+  <button (click)="button?.acao()">{{ button?.text }}</button>
+  }
+</div>
