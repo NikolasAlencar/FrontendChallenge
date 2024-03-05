@@ -1,0 +1,38 @@
+<div class="container">
+  <mat-grid-list [cols]="innerWidth()" rowHeight="22rem">
+    @for (character of characters; track $index) {
+    <mat-grid-tile>
+      <div class="primary" (click)="favorite(character)">
+        @defer {
+        <img class="img" loading="lazy" [src]="character.image" />
+        } @placeholder { A imagem será carregada em breve... } @loading(minimum
+        1500ms) {
+        <app-skeleton />
+        }
+        <div class="content">
+          <p class="name font-creepster">
+            {{ character.name | truncate : 19 }}
+          </p>
+          <p class="category font-poppins">{{ character.species }}</p>
+        </div>
+        <div
+          [ngClass]="character.favorite ? 'background-white' : ''"
+          class="heart"
+        >
+          <mat-icon
+            [ngStyle]="
+              character.favorite ? { color: 'black' } : { color: 'white' }
+            "
+            >{{ character.favorite ? "favorite" : "favorite_border" }}</mat-icon
+          >
+        </div>
+      </div>
+    </mat-grid-tile>
+    }
+  </mat-grid-list>
+  @if(seeMore){ @if (loadingPagination()) {
+  <app-loader />
+  } @else {
+  <button class="see-more">Ver Mais</button>
+  } }
+</div>
