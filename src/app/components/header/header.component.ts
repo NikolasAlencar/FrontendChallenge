@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { CharactersService } from '../../services/characters.service';
 
 @Component({
@@ -12,7 +12,21 @@ import { CharactersService } from '../../services/characters.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  characterService = inject(CharactersService);
+  constructor(
+    private router: Router,
+    public characterService: CharactersService
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const rotaAtual = this.router.url.substring(1);
+        if (rotaAtual === 'home') {
+          this.isActiveButton(rotaAtual);
+          this.handleButton(rotaAtual);
+        }
+      }
+    });
+  }
+
   activeButton = 'home';
 
   handleButton = (nameButton: string) => (this.activeButton = nameButton);

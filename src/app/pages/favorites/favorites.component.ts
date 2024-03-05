@@ -32,7 +32,7 @@ export class FavoritesComponent {
   loadingPagination = this.charactersService.getLoadingPagination();
   pagePagination = 0;
 
-  navigate = () => this.router.navigate(["/home"]);
+  navigate = () => this.router.navigate(['/home']);
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
