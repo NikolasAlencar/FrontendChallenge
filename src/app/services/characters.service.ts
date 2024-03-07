@@ -45,7 +45,7 @@ export class CharactersService {
     const idFavorite = this.favoriteCharacters().map(
       (character) => character.id
     );
-    character.map((character) => {
+    character.forEach((character) => {
       if (idFavorite.includes(character.id)) {
         character.favorite = true;
       }
