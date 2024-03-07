@@ -34,7 +34,7 @@ import { Characters } from '../../services/model/Character';
 })
 export class HomeComponent {
   constructor(){
-    this.charactersService.getCharactersByPage(this.pagePagination);
+    this.charactersService.getCharactersByPage();
     this.searchCharacter.valueChanges
       .pipe(startWith(''), distinctUntilChanged(), debounceTime(500))
       .subscribe(
@@ -57,7 +57,6 @@ export class HomeComponent {
   screenWidth = signal(window.innerWidth / 9);
 
   loadingPagination = this.charactersService.getLoadingPagination();
-  pagePagination = 0;
 
   filteredItems = (userInput: string) =>
     this.characters().filter((character) =>
@@ -73,8 +72,7 @@ export class HomeComponent {
   onScroll(): void {
     if (this.isScrolledToBottom()) {
       this.loadingPagination.set(true);
-      this.pagePagination += 20;
-      this.charactersService.getCharactersByPage(this.pagePagination);
+      this.charactersService.getCharactersByPage();
     }
   }
 

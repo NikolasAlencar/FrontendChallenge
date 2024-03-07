@@ -14,20 +14,24 @@ export class CharactersService {
   characters: WritableSignal<Characters> = signal([]);
   loadingPagination: WritableSignal<Boolean> = signal(false);
   favoriteCharacters: WritableSignal<Characters> = signal([]);
+  pagePagination = 0;
 
-  getCharactersByPage(page: number) {
-    if (page > 42) return this.loadingPagination.set(false);
+  getCharactersByPage() {
+    if (this.pagePagination > 42) return this.loadingPagination.set(false);
     this.httpClient
-      .get<Response>(`${this.BACKEND_URL}character/?page=${page}`)
+      .get<Response>(
+        `${this.BACKEND_URL}character/?page=${this.pagePagination}`
+      )
       .pipe(map((res) => res.results))
       .subscribe((characters) => {
         this.setFavorite(characters);
-        if (page > 0) {
+        if (this.pagePagination > 0) {
           this.characters.set(this.characters().concat(characters));
           this.loadingPagination.set(false);
         } else {
           this.characters.set(characters);
         }
+        this.pagePagination += 20;
       });
   }
 
