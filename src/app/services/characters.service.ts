@@ -18,6 +18,7 @@ export class CharactersService {
 
   getCharactersByPage() {
     if (this.pagePagination > 42) return this.loadingPagination.set(false);
+
     this.httpClient
       .get<Response>(
         `${this.BACKEND_URL}character/?page=${this.pagePagination}`
@@ -26,12 +27,12 @@ export class CharactersService {
       .subscribe((characters) => {
         this.setFavorite(characters);
         if (this.pagePagination > 0) {
-          this.characters.set(this.characters().concat(characters));
+          this.characters.update(oldValue => [...oldValue, ...characters]);
           this.loadingPagination.set(false);
         } else {
           this.characters.set(characters);
         }
-        this.pagePagination += 20;
+        this.pagePagination += 2;
       });
   }
 
@@ -42,8 +43,7 @@ export class CharactersService {
     this.favoriteCharacters().splice(index, 1);
   }
 
-  addFavorite = (character: Character) =>
-    this.favoriteCharacters().push(character);
+  addFavorite = (character: Character) => this.favoriteCharacters().push(character);
 
   setFavorite(character: Characters) {
     const idFavorite = this.favoriteCharacters().map(

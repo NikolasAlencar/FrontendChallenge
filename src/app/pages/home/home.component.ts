@@ -2,7 +2,6 @@ import {
   Component,
   HostListener,
   Injector,
-  OnInit,
   effect,
   inject,
   signal,
@@ -33,7 +32,7 @@ import { Characters } from '../../services/model/Character';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor(){
+  constructor() {
     this.charactersService.getCharactersByPage();
     this.searchCharacter.valueChanges
       .pipe(startWith(''), distinctUntilChanged(), debounceTime(500))
@@ -78,10 +77,7 @@ export class HomeComponent {
 
   isScrolledToBottom(): boolean {
     const windowHeight = window.innerHeight;
-    const scrollY =
-      window.scrollY ||
-      window.pageYOffset ||
-      document.documentElement.scrollTop;
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
     const documentHeight = document.documentElement.scrollHeight;
 
     return scrollY + windowHeight >= documentHeight;
